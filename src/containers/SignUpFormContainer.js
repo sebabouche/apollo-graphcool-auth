@@ -23,11 +23,14 @@ class SignUpFormContainer extends React.Component {
       .then((response) => {
         console.log(response.data)
         this.props.signInDispatcher(response.data.signinUser.token)
+        this.props.router.replace('/')
       })
-      this.props.router.replace('/')
+      .catch((signinErr) => {
+        console.log(signinErr)
+      })
     })
-    .catch((err) => {
-      console.error(err)
+    .catch((signupErr) => {
+      console.log(signupErr)
     })
   }
 

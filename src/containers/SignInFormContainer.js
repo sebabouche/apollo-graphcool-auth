@@ -19,14 +19,11 @@ class SignInFormContainer extends React.Component {
     .then((response) => {
       this.props.signInDispatcher(response.data.signinUser.token)
       this.props.router.replace('/')
-      // } else {
-      //   this.setState({
-      //     errors: response.data.signIn.errors
-      //   })
-      // }
     })
     .catch((err) => {
-      console.error(err)
+      console.log(err)
+      console.log(err.name)
+      console.log(err.message)
     })
   }
 
