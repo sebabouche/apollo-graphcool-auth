@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react"
 
 export default (props) => {
-  const user = props.data.user;
+  const user = props.data.user
 
   if (!user) {
     return (
@@ -12,7 +12,7 @@ export default (props) => {
           </div>
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -40,4 +40,4 @@ export default (props) => {
       </div>
     </div>
   )
-};
+}

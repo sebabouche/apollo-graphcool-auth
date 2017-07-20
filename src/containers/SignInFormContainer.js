@@ -1,11 +1,11 @@
-import React from 'react'
-import { withRouter } from 'react-router'
+import React from "react"
+import { withRouter } from "react-router"
 import { compose } from "redux"
-import { connect } from 'react-redux'
+import { connect } from "react-redux"
 
-import SignInForm from '../components/SignInForm'
+import SignInForm from "../components/SignInForm"
 import { withSigninUser } from "../state/modules/auth/gqls"
-import { signIn } from '../actions'
+import { signIn } from "../actions"
 
 class SignInFormContainer extends React.Component {
   constructor(props) {
@@ -16,14 +16,23 @@ class SignInFormContainer extends React.Component {
 
   handleSubmit(values) {
     this.props.handleSigninUser({ variables: values })
-    .then((response) => {
-      this.props.signInDispatcher(response.data.signinUser.token)
-      this.props.router.replace('/')
+    .then(({ data }) => {
+      if (data.signinUser.errors.length <= 0) {
+        this.props.signInDispatcher(data.signinUser.token)
+        this.props.router.replace("/")
+      } else {
+        console.log("Not there")
+        this.setState({
+          errors: data.signinUser.errors
+        })
+      }
     })
     .catch((err) => {
-      console.log(err)
       console.log(err.name)
       console.log(err.message)
+      this.setState({
+        errors: ["There was an error signin in.",]
+      })
     })
   }
 

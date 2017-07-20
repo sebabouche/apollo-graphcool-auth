@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react"
 
-import Navbar from '../containers/NavbarContainer';
+import Navbar from "../containers/NavbarContainer"
 
 export default ({ children }) => (
   <div>
     <Navbar />
     {children}
   </div>
-);
+)

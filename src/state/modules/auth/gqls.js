@@ -52,6 +52,6 @@ const userQuery = gql`
 export const withUser = graphql(userQuery)
 export const withUserNetworkOnly = graphql(
   userQuery, {
-    options: { fetchPolicy: 'network-only' },
+    options: { fetchPolicy: "network-only" },
   },
 )

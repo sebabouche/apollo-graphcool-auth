@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react"
 
-import SignInFormContainer from '../containers/SignInFormContainer';
+import SignInFormContainer from "../containers/SignInFormContainer"
 
 export default () => (
   <div className="container">
@@ -12,4 +12,4 @@ export default () => (
       </div>
     </div>
   </div>
-);
+)

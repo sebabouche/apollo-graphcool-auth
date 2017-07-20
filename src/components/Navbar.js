@@ -1,11 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React from "react"
+import { Link } from "react-router"
 
 export default (props) => {
   const logout = (e) => {
-    e.preventDefault();
-    props.logout();
-  };
+    e.preventDefault()
+    props.logout()
+  }
 
   const links = (
     (props.authenticated) ?
@@ -27,7 +27,7 @@ export default (props) => {
           <Link to="/signup" className="nav-item nav-link">Sign up</Link>
         </div>
       </div>
-    );
+    )
 
   return (
     <nav className="navbar navbar-light bg-faded mb-3">
@@ -37,5 +37,5 @@ export default (props) => {
         </div>
       </div>
     </nav>
-  );
-};
+  )
+}

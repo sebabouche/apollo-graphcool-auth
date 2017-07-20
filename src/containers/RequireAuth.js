@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react"
+import { connect } from "react-redux"
 
 export default function(ComposedComponent) {
   class Authentication extends Component {
@@ -9,13 +9,13 @@ export default function(ComposedComponent) {
 
     componentWillMount() {
       if (!this.props.authenticated) {
-        this.context.router.push('/');
+        this.context.router.push("/")
       }
     }
 
     componentWillUpdate(nextProps) {
       if (!nextProps.authenticated) {
-        this.context.router.push('/');
+        this.context.router.push("/")
       }
     }
 
@@ -25,8 +25,8 @@ export default function(ComposedComponent) {
   }
 
   function mapStateToProps(state) {
-    return { authenticated: state.auth.authenticated };
+    return { authenticated: state.auth.authenticated }
   }
 
-  return connect(mapStateToProps)(Authentication);
+  return connect(mapStateToProps)(Authentication)
 }

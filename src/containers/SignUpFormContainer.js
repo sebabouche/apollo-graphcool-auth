@@ -1,11 +1,11 @@
-import React from 'react'
-import { withRouter } from 'react-router'
+import React from "react"
+import { withRouter } from "react-router"
 import { compose } from "redux"
-import { connect } from 'react-redux'
+import { connect } from "react-redux"
 
-import SignUpForm from '../components/SignUpForm'
+import SignUpForm from "../components/SignUpForm"
 import { withCreateUser, withSigninUser } from "../state/modules/auth/gqls"
-import { signIn } from '../actions'
+import { signIn } from "../actions"
 
 class SignUpFormContainer extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class SignUpFormContainer extends React.Component {
       .then((response) => {
         console.log(response.data)
         this.props.signInDispatcher(response.data.signinUser.token)
-        this.props.router.replace('/')
+        this.props.router.replace("/")
       })
       .catch((signinErr) => {
         console.log(signinErr)

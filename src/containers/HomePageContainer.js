@@ -1,9 +1,9 @@
-import { connect } from 'react-redux';
+import { connect } from "react-redux"
 
-import Home from '../components/HomePage';
+import Home from "../components/HomePage"
 
 const mapStateToProps = (state) => ({
   authenticated: state.auth.authenticated
-});
+})
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(Home)
