@@ -1,19 +1,9 @@
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
+import { compose } from "react-apollo"
+import { withUserNetworkOnly } from "../state/modules/auth/gqls"
+import DashboardPage from '../components/DashboardPage'
 
-import DashboardPage from '../components/DashboardPage';
+const DashboardPageContainer = compose(
+  withUserNetworkOnly,
+)(DashboardPage)
 
-const usersQuery = gql`
-  query {
-    users {
-      id
-      firstname
-      lastname
-      email
-    }
-  }
-`;
-
-const DashboardPageWithData = graphql(usersQuery)(DashboardPage);
-
-export default DashboardPageWithData;
+export default DashboardPageContainer

@@ -24,6 +24,10 @@ const createUser = gql`
     }
   }
 `
+export const withCreateUser = graphql(createUser, {
+  name: "handleCreateUser",
+})
+
 
 const signinUser = gql`
   mutation ($email: String!, $password: String!) {
@@ -32,11 +36,23 @@ const signinUser = gql`
     }
   }
 `
-
-export const withCreateUser = graphql(createUser, {
-  name: "handleCreateUser",
-})
-
 export const withSigninUser = graphql(signinUser, {
   name: "handleSigninUser",
 })
+
+const userQuery = gql`
+  query {
+    user {
+      id
+      firstname
+      lastname
+      email
+    }
+  }
+`
+export const withUser = graphql(userQuery)
+export const withUserNetworkOnly = graphql(
+  userQuery, {
+    options: { fetchPolicy: 'network-only' },
+  },
+)

@@ -1,9 +1,9 @@
 import React from 'react';
 
 export default (props) => {
-  const users = props.data.users;
+  const user = props.data.user;
 
-  if (!users) {
+  if (!user) {
     return (
       <div className="container">
         <div className="row">
@@ -23,21 +23,17 @@ export default (props) => {
           <table className="table mt-2">
             <thead>
               <tr>
-                <th>#</th>
                 <th>First name</th>
                 <th>Last Name</th>
                 <th>Email</th>
               </tr>
             </thead>
             <tbody>
-              {users && users.map((user, index) => (
-                <tr key={index}>
-                  <th scope="row">{index+1}</th>
-                  <td>{user.firstname}</td>
-                  <td>{user.lastname}</td>
-                  <td>{user.email}</td>
-                </tr>
-              ))}
+              <tr>
+                <td>{user.firstname}</td>
+                <td>{user.lastname}</td>
+                <td>{user.email}</td>
+              </tr>
             </tbody>
           </table>
         </div>
