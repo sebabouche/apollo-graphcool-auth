@@ -1,22 +1,21 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import { createStore, combineReducers, applyMiddleware, compose } from "redux"
-import ApolloClient, { createNetworkInterface } from "apollo-client"
-import { ApolloProvider } from "react-apollo"
+import { ApolloProvider, ApolloClient, createNetworkInterface } from "react-apollo"
 import { Router, Route, IndexRoute, browserHistory } from "react-router"
 import { reducer as formReducer } from "redux-form"
 
 import "semantic-ui-css/semantic.min.css"
 
-import { AUTH_SIGNIN } from "./actions"
-import authReducer from "./reducers/authReducer"
-import RequireAuth from "./containers/RequireAuth"
-import App from "./components/App"
-import NoMatch from "./components/NoMatch"
-import HomePageContainer from "./containers/HomePageContainer"
-import SignUpPage from "./components/SignUpPage"
-import SignInPage from "./components/SignInPage"
-import DashboardPageContainer from "./containers/DashboardPageContainer"
+import { AUTH_SIGNIN } from "./state/modules/auth/actions"
+import authReducer from "./state/modules/auth/reducer"
+import RequireAuth from "./views/enhancers/RequireAuth"
+import App from "./views/main/App"
+import NoMatch from "./views/pages/NoMatch"
+import HomePage from "./views/pages/HomePage"
+import UserSignup from "./views/pages/UserSignup"
+import UserLogin from "./views/pages/UserLogin"
+import Dashboard from "./views/pages/Dashboard"
 
 const token = localStorage.getItem("token")
 const networkInterface = createNetworkInterface({ uri: "https://api.graph.cool/simple/v1/cj5cao53e41as0127khv191ib" })
@@ -32,11 +31,11 @@ networkInterface.use([{
       req.options.headers.authorization = `Bearer ${localStorage.getItem("token")}`
     }
     next()
-  }
+  },
 }])
 
 const client = new ApolloClient({
-  networkInterface
+  networkInterface,
 })
 
 const store = createStore(
@@ -50,7 +49,7 @@ const store = createStore(
       applyMiddleware(client.middleware()),
       // If you are using the devToolsExtension, you can add it here also
       window.devToolsExtension ? window.devToolsExtension() : f => f,
-  )
+  ),
 )
 
 if (token) {
@@ -62,13 +61,13 @@ ReactDOM.render(
   <ApolloProvider store={store} client={client}>
     <Router history={browserHistory} onUpdate={() => window.scrollTo(0, 0)}>
       <Route path="/" component={App}>
-        <IndexRoute component={HomePageContainer} />
-        <Route path="signup" component={SignUpPage} />
-        <Route path="signin" component={SignInPage} />
-        <Route path="dashboard" component={RequireAuth(DashboardPageContainer)} />
+        <IndexRoute component={HomePage} />
+        <Route path="signup" component={UserSignup} />
+        <Route path="signin" component={UserLogin} />
+        <Route path="dashboard" component={RequireAuth(Dashboard)} />
         <Route path="*" component={NoMatch} />
       </Route>
     </Router>
   </ApolloProvider>,
-  document.getElementById("root")
+  document.getElementById("root"),
 )

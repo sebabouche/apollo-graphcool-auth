@@ -1,13 +1,20 @@
 import React from "react"
+import PropTypes from "prop-types"
 import { withRouter } from "react-router"
-import { compose } from "redux"
+import { compose } from "redux"
 import { connect } from "react-redux"
 
-import SignUpForm from "../components/SignUpForm"
-import { withCreateUser, withSigninUser } from "../state/modules/auth/gqls"
-import { signIn } from "../actions"
+import SignUpForm from "./Form"
+import { withCreateUser, withSigninUser } from "../../../state/modules/auth/gqls"
+import { signIn } from "../../../state/modules/auth/actions"
 
 class SignUpFormContainer extends React.Component {
+  static propTypes = {
+    handleCreateUser: PropTypes.func.isRequired,
+    handleSigninUser: PropTypes.func.isRequired,
+    signInDispatcher: PropTypes.func.isRequired,
+    router: PropTypes.object.isRequired,
+  }
   constructor(props) {
     super(props)
     this.state = { errors: [] }
@@ -15,13 +22,10 @@ class SignUpFormContainer extends React.Component {
   }
 
   handleSubmit(values) {
-    console.log(values)
     this.props.handleCreateUser({ variables: values })
-    .then((response) => {
-      console.log("user created")
+    .then(() => {
       this.props.handleSigninUser({ variables: values })
       .then((response) => {
-        console.log(response.data)
         this.props.signInDispatcher(response.data.signinUser.token)
         this.props.router.replace("/")
       })
@@ -44,10 +48,10 @@ class SignUpFormContainer extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   signInDispatcher(token) {
     dispatch(signIn(token))
-  }
+  },
 })
 
 export default compose(

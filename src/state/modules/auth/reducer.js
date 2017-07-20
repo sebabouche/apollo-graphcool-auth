@@ -1,7 +1,7 @@
 import {
   AUTH_SIGNIN,
   AUTH_SIGNOUT
-} from "../actions"
+} from "./actions"
 
 const initialState = {
   authenticated: false

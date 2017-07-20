@@ -20,7 +20,7 @@ const renderErrors = (errors) => (
   </div>
 )
 
-const SignInForm = (props) => {
+const UserLoginForm = (props) => {
   const { handleSubmit } = props
   const errors = props.errors <= 0 ? null : renderErrors(props.errors)
   return (
@@ -53,6 +53,6 @@ const validate = (values) => {
 
 // Decorate the form component
 export default reduxForm({
-  form: "SignInForm", // a unique name for this form
+  form: "UserLoginForm", // a unique name for this form
   validate
-})(SignInForm)
+})(UserLoginForm)
