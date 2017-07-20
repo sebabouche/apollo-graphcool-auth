@@ -1,7 +1,6 @@
 import React from 'react'
 import { withRouter } from 'react-router'
-import { graphql, compose } from 'react-apollo'
-import gql from 'graphql-tag'
+import { compose } from "redux"
 import { connect } from 'react-redux'
 
 import SignInForm from '../components/SignInForm'
