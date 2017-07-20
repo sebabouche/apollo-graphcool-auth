@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { connect } from 'react-redux';
 
@@ -11,69 +11,86 @@ class SignUpFormContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = { errors: [] };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(values) {
-    this.props.signUp(values)
+    console.log(values)
+    this.props.handleSignup({ variables: values })
+    .then((response) => {
+      console.log("user created")
+      this.props.handleSignin({ variables: values })
       .then((response) => {
-        if (response.data.signUp.errors.length <= 0) {
-          this.props.signInDispatcher(response.data.signUp.token);
-          this.props.router.replace('/');
-        } else {
-          this.setState({
-            errors: response.data.signUp.errors
-          });
-        }
+        console.log(response.data)
+        this.props.signInDispatcher(response.data.signinUser.token);
       })
-      .catch((err) => {
-        console.error(err);
-      });
+      this.props.router.replace('/');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   }
 
   render() {
     return (
       <SignUpForm
-        onSubmit={this.handleSubmit.bind(this)}
+        onSubmit={this.handleSubmit}
         errors={this.state.errors}
       />
     );
   }
 }
 
-const signUpMutation = gql`
-  mutation signUp($firstName: String!, $lastName: String!, $email: String!, $password: String!) {
-    signUp(
-      firstName: $firstName
-      lastName: $lastName
-      email: $email
-      password: $password
+const createUser = gql`
+  mutation (
+    $email: String!,
+    $password: String!,
+    $firstname: String!,
+    $lastname: String!,
+    # $emailSubscription: Boolean!
+  ) {
+    createUser(
+      authProvider: {
+        email: {
+          email: $email,
+          password: $password
+        }
+      },
+      firstname: $firstname,
+      lastname: $lastname,
+      # emailSubscription: $emailSubscription
     ) {
-      token,
-      errors {
-        key
-        value
-      }
+      id
     }
   }
-`;
+`
 
-const SignUpWithData = graphql(signUpMutation, {
-  props: ({ mutate }) => ({
-    signUp: ({ firstName, lastName, email, password }) => mutate({
-      variables: { firstName, lastName, email, password }
-    }),
-  }),
-})(withRouter(SignUpFormContainer));
+const signinUser = gql`
+  mutation ($email: String!, $password: String!) {
+    signinUser(email: {email: $email, password: $password}) {
+      token
+    }
+  }
+`
 
+const withHandleSignup = graphql(createUser, {
+  name: "handleSignup",
+});
+
+const withHandleSignin = graphql(signinUser, {
+  name: "handleSignin",
+}
+
+)
 const mapDispatchToProps = (dispatch) => ({
   signInDispatcher(token) {
     dispatch(signIn(token));
   }
 });
 
-const SignUpWithDataAndDispatch = connect(
-  null,
-  mapDispatchToProps
-)(SignUpWithData);
-
-export default SignUpWithDataAndDispatch;
+export default compose(
+  withRouter,
+  connect(null, mapDispatchToProps),
+  withHandleSignup,
+  withHandleSignin,
+)(SignUpFormContainer)

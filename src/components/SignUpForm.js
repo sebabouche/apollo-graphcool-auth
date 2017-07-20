@@ -26,10 +26,11 @@ const SignUpForm = (props) => {
   return (
     <form onSubmit={handleSubmit}>
       {errors}
-      <Field name="firstName" type="text" component={renderField} label="First name" />
-      <Field name="lastName" type="text" component={renderField} label="Last name" />
+      <Field name="firstname" type="text" component={renderField} label="First name" />
+      <Field name="lastname" type="text" component={renderField} label="Last name" />
       <Field name="email" type="email" component={renderField} label="Email" />
       <Field name="password" type="password" component={renderField} label="Password" />
+      {/* <Field name="emailSubscription" type="checkbox" component={renderField} label="Email Subscription" /> */}
       <button type="submit" className="btn btn-primary">Sign up</button>
     </form>
   );
@@ -38,12 +39,12 @@ const SignUpForm = (props) => {
 const validate = (values) => {
   const errors = {}
 
-  if (!values.firstName) {
-    errors.firstName = 'Required';
+  if (!values.firstname) {
+    errors.firstname = 'Required';
   }
 
-  if (!values.lastName) {
-    errors.lastName = 'Required';
+  if (!values.lastname) {
+    errors.lastname = 'Required';
   }
 
   if (!values.email) {

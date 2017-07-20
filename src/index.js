@@ -17,7 +17,7 @@ import SignInPage from './components/SignInPage';
 import DashboardPageContainer from './containers/DashboardPageContainer';
 
 const token = localStorage.getItem('token');
-const networkInterface = createNetworkInterface({ uri: 'http://localhost:4000/graphql' });
+const networkInterface = createNetworkInterface({ uri: 'https://api.graph.cool/simple/v1/cj5cao53e41as0127khv191ib' });
 
 networkInterface.use([{
   applyMiddleware(req, next) {
