@@ -1,4 +1,4 @@
-import { compose } from "react-apollo"
+import { compose } from "redux"
 import { withUserNetworkOnly } from "../../../state/modules/auth/gqls"
 import Dashboard from "./Dashboard"
 

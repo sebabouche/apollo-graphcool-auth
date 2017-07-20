@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { withRouter } from "react-router"
+import { withRouter } from "react-router-dom"
 import { compose } from "redux"
 import { connect } from "react-redux"
 
@@ -12,7 +12,7 @@ class UserLoginFormContainer extends React.Component {
   static propTypes = {
     handleSigninUser: PropTypes.func.isRequired,
     signInDispatcher: PropTypes.func.isRequired,
-    router: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
   }
 
   constructor(props) {
@@ -25,7 +25,7 @@ class UserLoginFormContainer extends React.Component {
     this.props.handleSigninUser({ variables: values })
     .then(({ data }) => {
       this.props.signInDispatcher(data.signinUser.token)
-      this.props.router.replace("/")
+      this.props.history.replace("/")
     })
     .catch((err) => {
       console.log(err.name)

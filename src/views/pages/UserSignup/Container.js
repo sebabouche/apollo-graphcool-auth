@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { withRouter } from "react-router"
+import { withRouter } from "react-router-dom"
 import { compose } from "redux"
 import { connect } from "react-redux"
 
@@ -13,7 +13,7 @@ class SignUpFormContainer extends React.Component {
     handleCreateUser: PropTypes.func.isRequired,
     handleSigninUser: PropTypes.func.isRequired,
     signInDispatcher: PropTypes.func.isRequired,
-    router: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
   }
   constructor(props) {
     super(props)
@@ -27,7 +27,7 @@ class SignUpFormContainer extends React.Component {
       this.props.handleSigninUser({ variables: values })
       .then((response) => {
         this.props.signInDispatcher(response.data.signinUser.token)
-        this.props.router.replace("/")
+        this.props.history.replace("/")
       })
       .catch((signinErr) => {
         console.log(signinErr)

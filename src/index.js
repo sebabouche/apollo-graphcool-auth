@@ -2,20 +2,14 @@ import React from "react"
 import ReactDOM from "react-dom"
 import { createStore, combineReducers, applyMiddleware, compose } from "redux"
 import { ApolloProvider, ApolloClient, createNetworkInterface } from "react-apollo"
-import { Router, Route, IndexRoute, browserHistory } from "react-router"
+import { Router } from "react-router-dom"
 import { reducer as formReducer } from "redux-form"
 
 import "semantic-ui-css/semantic.min.css"
-
+import history from "./utils/history"
 import { AUTH_SIGNIN } from "./state/modules/auth/actions"
 import authReducer from "./state/modules/auth/reducer"
-import RequireAuth from "./views/enhancers/RequireAuth"
 import App from "./views/main/App"
-import NoMatch from "./views/pages/NoMatch"
-import HomePage from "./views/pages/HomePage"
-import UserSignup from "./views/pages/UserSignup"
-import UserLogin from "./views/pages/UserLogin"
-import Dashboard from "./views/pages/Dashboard"
 
 const token = localStorage.getItem("token")
 const networkInterface = createNetworkInterface({ uri: "https://api.graph.cool/simple/v1/cj5cao53e41as0127khv191ib" })
@@ -59,14 +53,8 @@ if (token) {
 
 ReactDOM.render(
   <ApolloProvider store={store} client={client}>
-    <Router history={browserHistory} onUpdate={() => window.scrollTo(0, 0)}>
-      <Route path="/" component={App}>
-        <IndexRoute component={HomePage} />
-        <Route path="signup" component={UserSignup} />
-        <Route path="signin" component={UserLogin} />
-        <Route path="dashboard" component={RequireAuth(Dashboard)} />
-        <Route path="*" component={NoMatch} />
-      </Route>
+    <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
+      <App />
     </Router>
   </ApolloProvider>,
   document.getElementById("root"),

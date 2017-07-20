@@ -1,15 +1,16 @@
 {
-  "name": "wunjo-app",
+  "name": "apollo-graphcool-auth",
   "version": "0.0.2",
   "author": "wunjo",
   "private": true,
   "dependencies": {
+    "history": "^4.6.3",
     "prop-types": "^15.5.10",
     "react": "^15.5.10",
     "react-apollo": "^1.2.0",
     "react-dom": "^15.5.10",
     "react-redux": "^5.0.5",
-    "react-router": "^3.0.0",
+    "react-router-dom": "^4.1.2",
     "redux": "^3.7.2",
     "redux-form": "^6.3.2",
     "semantic-ui-css": "^2.2.11",

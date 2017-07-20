@@ -1,6 +1,8 @@
+import { compose } from "redux"
 import { connect } from "react-redux"
-import { browserHistory } from "react-router"
+import { withRouter } from "react-router-dom"
 
+import history from "../../../utils/history"
 import { signOut } from "../../../state/modules/auth/actions"
 import Navbar from "./Navbar"
 
@@ -11,11 +13,12 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   logout() {
     dispatch(signOut())
-    browserHistory.push("/")
+    // TODO check this
+    history.push("/")
   },
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
+export default compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps),
 )(Navbar)
