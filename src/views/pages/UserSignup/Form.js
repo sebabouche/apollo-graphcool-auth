@@ -1,40 +1,76 @@
 import React from "react"
 import { Field, reduxForm } from "redux-form"
+import { Form, Message, Button } from "semantic-ui-react"
 
-const renderField = ({ input, label, type, meta: { touched, error } }) => {
-  const hasError = (touched && error) ? "has-danger" : ""
-  return (
-    <div className={`form-group ${hasError}`}>
-      <label>{label}</label>
-      <div>
-        <input {...input} placeholder={label} type={type} className="form-control" />
-        {touched && error && <div className="form-control-feedback">{error}</div>}
-      </div>
-    </div>
-  )
-}
+import InputField from "../../components/InputField"
 
-const renderErrors = (errors) => (
-  <div className="alert alert-danger" role="alert">
-    {errors.map((error, index) => <span key={index}>{error.value}</span>)}
-  </div>
+const SignUpForm = ({
+  error,
+  handleSubmit,
+  pristine,
+  submitting,
+  reset,
+}) => (
+  <Form onSubmit={handleSubmit}>
+    {
+      error &&
+      <Message
+        icon="bug"
+        header={error}
+        negative
+      />
+    }
+    <Field
+      type="firstname"
+      name="firstname"
+      component={InputField}
+      placeholder="Firstname"
+      label="Firstname"
+    />
+
+    <Field
+      type="lastname"
+      name="lastname"
+      component={InputField}
+      placeholder="Lastname"
+      label="Lastname"
+    />
+
+    <Field
+      type="email"
+      name="email"
+      component={InputField}
+      placeholder="Email"
+      label="Email"
+    />
+
+    <Field
+      name="password"
+      component={InputField}
+      type="password"
+      placeholder="Mot de passe"
+      label="Mot de passe"
+    />
+
+    <Button
+      type="submit"
+      color="green"
+      disabled={pristine || submitting}
+      fluid
+    >
+      Sign up
+    </Button>
+    <p>
+      <Button
+        type="button"
+        disabled={pristine || submitting}
+        onClick={reset}
+      >
+        Effacer
+      </Button>
+    </p>
+  </Form>
 )
-
-const SignUpForm = (props) => {
-  const { handleSubmit } = props
-  const errors = props.errors <= 0 ? null : renderErrors(props.errors)
-  return (
-    <form onSubmit={handleSubmit}>
-      {errors}
-      <Field name="firstname" type="text" component={renderField} label="First name" />
-      <Field name="lastname" type="text" component={renderField} label="Last name" />
-      <Field name="email" type="email" component={renderField} label="Email" />
-      <Field name="password" type="password" component={renderField} label="Password" />
-      {/* <Field name="emailSubscription" type="checkbox" component={renderField} label="Email Subscription" /> */}
-      <button type="submit" className="btn btn-primary">Sign up</button>
-    </form>
-  )
-}
 
 const validate = (values) => {
   const errors = {}
@@ -62,8 +98,7 @@ const validate = (values) => {
   return errors
 }
 
-// Decorate the form component
 export default reduxForm({
-  form: "SignUpForm", // a unique name for this form
+  form: "signup",
   validate
 })(SignUpForm)
