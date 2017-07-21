@@ -13,7 +13,9 @@ import uiReducer from "./state/modules/ui/reducer"
 import App from "./views/main/App"
 
 const token = localStorage.getItem("token")
-const networkInterface = createNetworkInterface({ uri: "https://api.graph.cool/simple/v1/cj5cao53e41as0127khv191ib" })
+const networkInterface = createNetworkInterface({
+  uri: "https://api.graph.cool/simple/v1/cj5cao53e41as0127khv191ib",
+})
 
 networkInterface.use([{
   applyMiddleware(req, next) {
