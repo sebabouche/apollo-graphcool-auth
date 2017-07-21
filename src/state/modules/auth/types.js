@@ -1,0 +1,7 @@
+const AUTH_SIGNIN = "AUTH_SIGNIN"
+const AUTH_SIGNOUT = "AUTH_SIGNOUT"
+
+export default {
+  AUTH_SIGNIN,
+  AUTH_SIGNOUT,
+}

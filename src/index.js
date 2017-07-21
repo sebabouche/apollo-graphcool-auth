@@ -9,6 +9,7 @@ import "semantic-ui-css/semantic.min.css"
 import history from "./utils/history"
 import { AUTH_SIGNIN } from "./state/modules/auth/actions"
 import authReducer from "./state/modules/auth/reducer"
+import uiReducer from "./state/modules/ui/reducer"
 import App from "./views/main/App"
 
 const token = localStorage.getItem("token")
@@ -37,6 +38,7 @@ const store = createStore(
     apollo: client.reducer(),
     form: formReducer,
     auth: authReducer,
+    ui: uiReducer,
   }),
   {}, // initial state
   compose(

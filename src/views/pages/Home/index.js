@@ -5,8 +5,8 @@ import { connect } from "react-redux"
 import Landing from "../Landing"
 import Dashboard from "../Dashboard"
 
-const Home = props => (
-  props.authenticated ? <Dashboard /> : <Landing />
+const Home = ({ authenticated }) => (
+  authenticated ? <Dashboard /> : <Landing />
 )
 
 Home.propTypes = {
