@@ -6,7 +6,7 @@ import { connect } from "react-redux"
 
 import UserLoginForm from "./Form"
 import { withSigninUser } from "../../../state/modules/auth/gqls"
-import { signIn } from "../../../state/modules/auth/actions"
+import authActions from "../../../state/modules/auth/actions"
 
 class UserLoginFormContainer extends React.Component {
   static propTypes = {
@@ -22,6 +22,7 @@ class UserLoginFormContainer extends React.Component {
   }
 
   handleSubmit(values) {
+    console.log("login values", values)
     this.props.handleSigninUser({ variables: values })
     .then(({ data }) => {
       this.props.signInDispatcher(data.signinUser.token)
@@ -48,7 +49,7 @@ class UserLoginFormContainer extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
   signInDispatcher(token) {
-    dispatch(signIn(token))
+    dispatch(authActions.signIn(token))
   },
 })
 

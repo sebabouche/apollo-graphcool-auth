@@ -7,7 +7,7 @@ import { reducer as formReducer } from "redux-form"
 
 import "semantic-ui-css/semantic.min.css"
 import history from "./utils/history"
-import { AUTH_SIGNIN } from "./state/modules/auth/actions"
+import authActions from "./state/modules/auth/actions"
 import authReducer from "./state/modules/auth/reducer"
 import uiReducer from "./state/modules/ui/reducer"
 import App from "./views/main/App"
@@ -48,9 +48,9 @@ const store = createStore(
   ),
 )
 
-if (token) {
+if (localStorage.getItem("token")) {
   // We need to update application state if the token exists
-  store.dispatch({ type: AUTH_SIGNIN })
+  store.dispatch(authActions.signIn(token))
 }
 
 ReactDOM.render(

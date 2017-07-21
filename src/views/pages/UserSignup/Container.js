@@ -6,7 +6,7 @@ import { connect } from "react-redux"
 
 import SignUpForm from "./Form"
 import { withCreateUser, withSigninUser } from "../../../state/modules/auth/gqls"
-import { signIn } from "../../../state/modules/auth/actions"
+import authActions from "../../../state/modules/auth/actions"
 
 class SignUpFormContainer extends React.Component {
   static propTypes = {
@@ -22,6 +22,7 @@ class SignUpFormContainer extends React.Component {
   }
 
   handleSubmit(values) {
+    console.log("signup values", values)
     this.props.handleCreateUser({ variables: values })
     .then(() => {
       this.props.handleSigninUser({ variables: values })
@@ -50,7 +51,7 @@ class SignUpFormContainer extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
   signInDispatcher(token) {
-    dispatch(signIn(token))
+    dispatch(authActions.signIn(token))
   },
 })
 

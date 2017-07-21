@@ -5,7 +5,7 @@ import { connect } from "react-redux"
 import { Menu } from "semantic-ui-react"
 
 import history from "../../utils/history"
-import { signOut } from "../../state/modules/auth/actions"
+import authActions from "../../state/modules/auth/actions"
 import MenuItem from "../components/MenuItem"
 
 const Navbar = ({
@@ -66,7 +66,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   logout() {
-    dispatch(signOut())
+    dispatch(authActions.signOut())
     // TODO check this
     history.push("/")
   },
