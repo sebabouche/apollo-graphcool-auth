@@ -1,5 +1,5 @@
-const AUTH_SIGNIN = "AUTH_SIGNIN"
-const AUTH_SIGNOUT = "AUTH_SIGNOUT"
+const AUTH_SIGNIN = "wunjo/auth/SIGNIN"
+const AUTH_SIGNOUT = "wunjo/auth/SIGNOUT"
 
 export default {
   AUTH_SIGNIN,
