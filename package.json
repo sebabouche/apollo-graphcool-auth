@@ -4,6 +4,7 @@
   "author": "wunjo",
   "private": true,
   "dependencies": {
+    "graphql-tag": "^2.4.2",
     "history": "^4.6.3",
     "prop-types": "^15.5.10",
     "react": "^15.5.10",

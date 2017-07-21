@@ -1,6 +1,6 @@
 import { graphql, gql } from "react-apollo"
 
-const createUser = gql`
+export const createUser = gql`
   mutation (
     $email: String!,
     $password: String!,
@@ -27,8 +27,7 @@ export const withCreateUser = graphql(createUser, {
   name: "handleCreateUser",
 })
 
-
-const signinUser = gql`
+export const signinUser = gql`
   mutation ($email: String!, $password: String!) {
     signinUser(email: {email: $email, password: $password}) {
       token
@@ -39,7 +38,7 @@ export const withSigninUser = graphql(signinUser, {
   name: "handleSigninUser",
 })
 
-const userQuery = gql`
+export const userQuery = gql`
   query {
     user {
       id
